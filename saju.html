@@ -947,17 +947,15 @@ function shareKakao() {
   initKakao();
   const name = document.getElementById('resultName').textContent;
   const sub = document.getElementById('resultSub').textContent;
+  const honeyFull = document.getElementById('honeyText').innerText || '';
+  const honeySnippet = honeyFull.length > 60 ? honeyFull.slice(0, 60) + '...' : honeyFull;
 
   if (window.Kakao && window.Kakao.Share) {
     try {
       window.Kakao.Share.sendDefault({
-        objectType: 'feed',
-        content: {
-          title: '🍯 꿀단지 사주팔자',
-          description: `${name} · ${sub}`,
-          imageUrl: 'https://galmegiking-collab.github.io/og-image.png',
-          link: { mobileWebUrl: location.href, webUrl: location.href }
-        },
+        objectType: 'text',
+        text: `🍯 ${name}\n${sub}\n\n${honeySnippet}`,
+        link: { mobileWebUrl: location.href, webUrl: location.href },
         buttons: [{ title: '나도 사주 보기', link: { mobileWebUrl: location.href, webUrl: location.href } }]
       });
       return;
