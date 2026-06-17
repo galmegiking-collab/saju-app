@@ -953,10 +953,14 @@ function shareKakao() {
   if (window.Kakao && window.Kakao.Share) {
     try {
       window.Kakao.Share.sendDefault({
-        objectType: 'text',
-        text: `🍯 ${name}\n${sub}\n\n${honeySnippet}`,
-        link: { mobileWebUrl: location.href, webUrl: location.href },
-        buttons: [{ title: '나도 사주 보기', link: { mobileWebUrl: location.href, webUrl: location.href } }]
+        objectType: 'feed',
+        content: {
+          title: `🍯 ${name}`,
+          description: `${sub}\n${honeySnippet}`,
+          imageUrl: 'https://galmegiking-collab.github.io/saju-app/og-image.png',
+          link: { mobileWebUrl: location.href, webUrl: location.href }
+        },
+        buttons: [{ title: '나도 사주 보러가기 🔮', link: { mobileWebUrl: location.href, webUrl: location.href } }]
       });
       return;
     } catch(e) { console.warn('Kakao share failed, fallback to copy', e); }
