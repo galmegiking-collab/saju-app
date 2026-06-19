@@ -351,6 +351,19 @@
   .loading .jar { font-size: 2.5rem; display: inline-block; animation: spin 1s linear infinite; }
 
   #captureArea { background: var(--paper); }
+
+  /* AI 해석 */
+  .ai-toggle-row { display:flex; align-items:center; gap:10px; margin:16px 0 8px; }
+  .ai-toggle-label { font-size:.75rem; color:var(--muted); }
+  .ai-toggle { display:flex; background:var(--paper-dark); border-radius:99px; padding:3px; gap:2px; border:1px solid var(--border); }
+  .ai-toggle-btn { padding:5px 12px; border:none; border-radius:99px; font-size:.72rem; font-family:'Noto Sans KR',sans-serif; cursor:pointer; background:transparent; color:var(--muted); transition:all .2s; }
+  .ai-toggle-btn.active { background:var(--ink); color:var(--gold-light); font-weight:700; }
+  .ai-btn-row { display:flex; gap:8px; margin-bottom:6px; }
+  .ai-ask-btn { flex:1; padding:12px 8px; border:none; border-radius:12px; font-size:.82rem; font-family:'Noto Sans KR',sans-serif; font-weight:700; cursor:pointer; transition:opacity .2s; display:flex; align-items:center; justify-content:center; gap:6px; }
+  .ai-ask-btn.gpt { background:#10a37f; color:white; }
+  .ai-ask-btn.gemini { background:#1a73e8; color:white; }
+  .ai-ask-btn:hover { opacity:.88; }
+  .ai-hint { font-size:.68rem; color:var(--muted); text-align:center; margin:0; }
 </style>
 </head>
 <body>
@@ -454,6 +467,7 @@
           <h3>🍯 꿀단지 한마디</h3>
           <p id="honeyText"></p>
         </div>
+        <div class="ai-block" id="ai-basic"></div>
       </div>
 
       <div class="tab-panel" id="panel-sipsin">
@@ -484,6 +498,7 @@
           <p style="font-size:.75rem;color:var(--muted);margin-bottom:14px;">일간(나)을 기준으로 다른 글자들이 어떤 역할을 하는지 보여줘요</p>
           <div class="sipsin-list" id="sipsinList"></div>
         </div>
+        <div class="ai-block" id="ai-sipsin"></div>
       </div>
 
       <div class="tab-panel" id="panel-sinsal">
@@ -491,6 +506,7 @@
           <h3>⚡ 신살(神殺) 분석</h3>
           <div id="sinsalContent"></div>
         </div>
+        <div class="ai-block" id="ai-sinsal"></div>
       </div>
 
       <div class="tab-panel" id="panel-today">
@@ -511,6 +527,7 @@
           <div class="daeun-list" id="daeunList"></div>
           <p style="font-size:.72rem;color:var(--muted);margin-top:10px;">* 대운은 10년 단위 운의 흐름입니다</p>
         </div>
+        <div class="ai-block" id="ai-daeun"></div>
       </div>
 
     </div>
@@ -1262,6 +1279,7 @@ function calculate() {
       document.getElementById('loading').style.display = 'none';
       document.getElementById('result').style.display  = 'block';
       document.getElementById('result').scrollIntoView({behavior:'smooth',block:'start'});
+      initAiBlocks();
     } catch(e) {
       document.getElementById('loading').style.display = 'none';
       alert('계산 중 오류가 발생했어요. 날짜를 확인해주세요.');
@@ -1332,6 +1350,95 @@ function saveImage() {
     link.href = canvas.toDataURL('image/png');
     link.click();
   }).catch(console.error);
+// ============================================================
+// AI 해석 기능 (ChatGPT / Gemini)
+// ============================================================
+let aiStyle  = {};
+let aiTarget = {};
+
+const AI_TABS = {
+  basic:  { emoji:'🀄', name:'사주팔자' },
+  sipsin: { emoji:'🔑', name:'십신' },
+  sinsal: { emoji:'⚡', name:'신살' },
+  daeun:  { emoji:'📈', name:'대운' },
+};
+
+function initAiBlocks() {
+  Object.keys(AI_TABS).forEach(tab => {
+    aiStyle[tab]  = 'honey';
+    aiTarget[tab] = 'gpt';
+    const el = document.getElementById('ai-' + tab);
+    if (!el) return;
+    el.innerHTML = `
+      <div class="ai-toggle-row">
+        <span class="ai-toggle-label">스타일</span>
+        <div class="ai-toggle">
+          <button class="ai-toggle-btn active" id="ai-toggle-honey-${tab}" onclick="setAiStyle('${tab}','honey')">🍯 꿀단지</button>
+          <button class="ai-toggle-btn" id="ai-toggle-expert-${tab}" onclick="setAiStyle('${tab}','expert')">📚 전문가</button>
+        </div>
+      </div>
+      <div class="ai-btn-row">
+        <button class="ai-ask-btn gpt" onclick="askAI('${tab}','gpt')">
+          <span>🤖</span> ChatGPT에게 물어보기
+        </button>
+        <button class="ai-ask-btn gemini" onclick="askAI('${tab}','gemini')">
+          <span>✨</span> Gemini에게 물어보기
+        </button>
+      </div>
+      <p class="ai-hint">🤖 ChatGPT는 자동으로 질문 입력 &nbsp;|&nbsp; ✨ Gemini는 복사 후 붙여넣기</p>
+    `;
+  });
+}
+
+function setAiStyle(tab, style) {
+  aiStyle[tab] = style;
+  document.getElementById('ai-toggle-honey-' + tab).classList.toggle('active', style === 'honey');
+  document.getElementById('ai-toggle-expert-' + tab).classList.toggle('active', style === 'expert');
+}
+
+function buildAiPrompt(tab) {
+  if (!savedSajuData) return '';
+  const { yCg, yJj, mCg, mJj, dCg, dJj, hourP } = savedSajuData;
+  const CG = CHEONGAN_KR; const JJ = JIJI_KR;
+  const 사주 = `${hourP ? CG[hourP.cg]+JJ[hourP.jj]+'(시주) ' : ''}${CG[dCg]+JJ[dJj]}(일주) ${CG[mCg]+JJ[mJj]}(월주) ${CG[yCg]+JJ[yJj]}(연주)`;
+  const 일간 = ILGAN_INFO[dCg].name;
+  const style = aiStyle[tab];
+  const honeyGuide = `친근하고 재미있는 감성으로, 이모지 포함해서 쉽고 재밌게 설명해줘. 말투는 "~해요" 체로. 전문용어는 쉽게 풀어서.`;
+  const expertGuide = `명리학 전문가처럼 깊이 있게 분석해줘. 단, 전문용어나 한자를 쓸 때는 반드시 괄호 안에 쉬운 말로 설명을 덧붙여줘. 일반인도 이해할 수 있게.`;
+  const styleGuide = style === 'honey' ? honeyGuide : expertGuide;
+  const prompts = {
+    basic:  `다음 사주팔자를 분석해줘.\n\n사주: ${사주}\n일간: ${일간}\n\n${styleGuide}\n\n사주의 전체적인 기운, 성격 특성, 강점과 약점, 인생 방향을 설명해줘.`,
+    sipsin: `다음 사주의 십신(十神) 구성을 분석해줘.\n\n사주: ${사주}\n일간: ${일간}\n\n${styleGuide}\n\n이 사주의 십신 구성이 갖는 의미, 인간관계 패턴, 직업 적성을 설명해줘.`,
+    sinsal: `다음 사주의 신살(神殺)을 분석해줘.\n\n사주: ${사주}\n일간: ${일간}\n\n${styleGuide}\n\n이 사주에서 주목할 신살의 의미와 삶에 미치는 영향을 설명해줘.`,
+    daeun:  `다음 사주의 대운(大運) 흐름을 분석해줘.\n\n사주: ${사주}\n일간: ${일간}\n\n${styleGuide}\n\n현재 대운의 의미와 앞으로의 운의 흐름 방향을 설명해줘.`,
+  };
+  return prompts[tab] || '';
+}
+
+async function askAI(tab, target) {
+  const prompt = buildAiPrompt(tab);
+  if (!prompt) return;
+  const encoded = encodeURIComponent(prompt);
+  if (target === 'gpt') {
+    window.open('https://chat.openai.com/?q=' + encoded, '_blank');
+  } else {
+    try { await navigator.clipboard.writeText(prompt); } catch(e) {}
+    window.open('https://gemini.google.com/app', '_blank');
+    showToast('📋 질문이 복사됐어요! Gemini에 Ctrl+V(붙여넣기) 해주세요');
+  }
+}
+
+function showToast(msg) {
+  let toast = document.getElementById('ai-toast');
+  if (!toast) {
+    toast = document.createElement('div');
+    toast.id = 'ai-toast';
+    toast.style.cssText = 'position:fixed;bottom:80px;left:50%;transform:translateX(-50%);background:#1a1208;color:#f5d98a;padding:12px 20px;border-radius:12px;font-size:.8rem;z-index:9999;opacity:0;transition:opacity .3s;text-align:center;line-height:1.5;max-width:280px;';
+    document.body.appendChild(toast);
+  }
+  toast.textContent = msg;
+  toast.style.opacity = '1';
+  setTimeout(() => { toast.style.opacity = '0'; }, 3500);
 }
 </script>
 </body>
