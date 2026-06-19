@@ -19,6 +19,12 @@
     --paper-dark: #f5ead0;
     --muted: #7a6a4f;
     --border: #d4b87a;
+    --blue: #1a5276;
+    --blue-soft: #d6eaf8;
+    --green: #1e8449;
+    --green-soft: #d5f5e3;
+    --purple: #6c3483;
+    --purple-soft: #e8daef;
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -161,7 +167,6 @@
   }
   .saju-sipsin-ji { font-size: .6rem; color: var(--gold); font-weight: 700; }
 
-  /* 오행 색상: 목(초록) 화(빨강) 토(황토) 금(흰색/회색) 수(검정/남색) */
   .oh-mok  { background: #2e7d4f; color: #ffffff; }
   .oh-hwa  { background: #c0392b; color: #ffffff; }
   .oh-to   { background: #d4a017; color: #ffffff; }
@@ -217,15 +222,55 @@
   .guide-footer { font-size: .76rem; line-height: 1.6; color: #3a2e1a; border-top: 1px dashed var(--gold); padding-top: 12px; }
   .guide-footer b { color: var(--gold); }
 
-  .sinsal-grid { display: flex; flex-wrap: wrap; gap: 8px; }
-  .sinsal-chip {
-    background: var(--red-soft); border: 1px solid var(--red); color: var(--red);
-    font-size: .78rem; font-weight: 700; padding: 6px 12px; border-radius: 99px;
+  /* ===== 신살 섹션 스타일 ===== */
+  .sinsal-section { margin-bottom: 18px; }
+  .sinsal-section-title {
+    font-size: .8rem; font-weight: 700; color: var(--muted);
+    margin-bottom: 8px; padding-bottom: 4px;
+    border-bottom: 1px dashed var(--border);
+    display: flex; align-items: center; gap: 6px;
   }
+  .sinsal-grid { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 8px; }
+
+  /* 신살 칩 색상 분류 */
+  .sinsal-chip {
+    font-size: .76rem; font-weight: 700; padding: 5px 11px; border-radius: 99px;
+    border: 1.5px solid; cursor: default;
+  }
+  .chip-red   { background: var(--red-soft);    border-color: var(--red);    color: var(--red); }
+  .chip-blue  { background: var(--blue-soft);   border-color: var(--blue);   color: var(--blue); }
+  .chip-green { background: var(--green-soft);  border-color: var(--green);  color: var(--green); }
+  .chip-purple{ background: var(--purple-soft); border-color: var(--purple); color: var(--purple); }
+  .chip-gold  { background: var(--gold-pale);   border-color: var(--gold);   color: #7a5500; }
+
+  .sinsal-desc-list { display: flex; flex-direction: column; gap: 8px; margin-top: 10px; }
+  .sinsal-desc-item {
+    font-size: .78rem; line-height: 1.65; color: var(--ink);
+    padding: 9px 12px; background: var(--paper); border-radius: 10px;
+    border-left: 3px solid var(--border);
+  }
+  .sinsal-desc-item.desc-red    { border-left-color: var(--red); }
+  .sinsal-desc-item.desc-blue   { border-left-color: var(--blue); }
+  .sinsal-desc-item.desc-green  { border-left-color: var(--green); }
+  .sinsal-desc-item.desc-purple { border-left-color: var(--purple); }
+  .sinsal-desc-item.desc-gold   { border-left-color: var(--gold); }
+  .sinsal-desc-item b { font-weight: 700; }
   .sinsal-empty { font-size: .8rem; color: var(--muted); padding: 8px 0; }
-  .sinsal-desc-list { margin-top: 12px; display: flex; flex-direction: column; gap: 8px; }
-  .sinsal-desc-item { font-size: .78rem; line-height: 1.6; color: var(--ink); }
-  .sinsal-desc-item b { color: var(--red); }
+
+  /* 12신살 테이블 */
+  .sinsal-12-table { width: 100%; border-collapse: collapse; font-size: .72rem; margin-bottom: 10px; }
+  .sinsal-12-table th {
+    background: var(--ink); color: var(--gold-light); padding: 5px 4px;
+    font-weight: 700; text-align: center; font-size: .65rem; letter-spacing: .05em;
+  }
+  .sinsal-12-table td {
+    padding: 5px 4px; text-align: center; border: 1px solid var(--border);
+    font-family: 'Noto Serif KR', serif; font-size: .75rem;
+  }
+  .sinsal-12-table tr:nth-child(even) td { background: var(--paper); }
+  .sinsal-12-table .td-label { font-size: .68rem; color: var(--muted); font-family: 'Noto Sans KR', sans-serif; }
+  .sinsal-12-table td.hit { background: #fff3cd; font-weight: 700; color: var(--red); border-color: var(--gold); }
+  .sinsal-12-table td.row-label { background: var(--paper-dark); font-size: .68rem; color: var(--muted); font-family: 'Noto Sans KR', sans-serif; font-weight: 700; }
 
   .honeypot-comment {
     background: linear-gradient(135deg, #fff9e6 0%, #fdf3d0 100%);
@@ -292,8 +337,6 @@
     font-weight: 500; cursor: pointer; color: var(--ink); transition: background .2s;
   }
   .share-btn:hover { background: var(--paper-dark); }
-  .share-btn.kakao { background: #fee500; border-color: #fee500; color: #191919; }
-  .share-btn.kakao:hover { background: #f0d800; }
   .share-btn.save { background: var(--ink); border-color: var(--ink); color: var(--gold-light); }
   .share-btn.save:hover { opacity: .85; }
 
@@ -433,7 +476,7 @@
               <div class="guide-row"><b>시지</b> 태어난 시각의 아래글자</div>
             </div>
           </div>
-          <p class="guide-footer">아래 십신 분석은 <b>일간(나)</b>을 기준으로, 나머지 7글자가 나에게 어떤 의미인지 풀어준 거예요. 비견·겁재처럼 낯선 이름들은 그 글자가 나와 어떤 관계인지를 나타내는 호칭일 뿐이에요.</p>
+          <p class="guide-footer">아래 십신 분석은 <b>일간(나)</b>을 기준으로, 나머지 7글자가 나에게 어떤 의미인지 풀어준 거예요.</p>
         </div>
 
         <div class="section-card">
@@ -445,10 +488,8 @@
 
       <div class="tab-panel" id="panel-sinsal">
         <div class="section-card">
-          <h3>⚡ 신살(神殺)</h3>
-          <p style="font-size:.75rem;color:var(--muted);margin-bottom:14px;">사주에 있는 특수 기운들이에요</p>
-          <div class="sinsal-grid" id="sinsalGrid"></div>
-          <div class="sinsal-desc-list" id="sinsalDescList"></div>
+          <h3>⚡ 신살(神殺) 분석</h3>
+          <div id="sinsalContent"></div>
         </div>
       </div>
 
@@ -488,21 +529,27 @@
 </footer>
 
 <script>
-const CHEONGAN = ['甲','乙','丙','丁','戊','己','庚','辛','壬','癸'];
+// ============================================================
+// 기본 상수
+// ============================================================
+const CHEONGAN    = ['甲','乙','丙','丁','戊','己','庚','辛','壬','癸'];
 const CHEONGAN_KR = ['갑','을','병','정','무','기','경','신','임','계'];
-const JIJI = ['子','丑','寅','卯','辰','巳','午','未','申','酉','戌','亥'];
-const JIJI_KR = ['자','축','인','묘','진','사','오','미','신','유','술','해'];
-const JIJI_ZOO = ['쥐','소','호랑이','토끼','용','뱀','말','양','원숭이','닭','개','돼지'];
+const JIJI        = ['子','丑','寅','卯','辰','巳','午','未','申','酉','戌','亥'];
+const JIJI_KR     = ['자','축','인','묘','진','사','오','미','신','유','술','해'];
+const JIJI_ZOO    = ['쥐','소','호랑이','토끼','용','뱀','말','양','원숭이','닭','개','돼지'];
 
-const CG_OHAENG = [0,0,1,1,2,2,3,3,4,4];
-const JJ_OHAENG = [4,2,0,0,2,1,1,2,3,3,2,4];
+const CG_OHAENG  = [0,0,1,1,2,2,3,3,4,4];
+const JJ_OHAENG  = [4,2,0,0,2,1,1,2,3,3,2,4];
 
-const OHAENG_NAMES = ['목(木)','화(火)','토(土)','금(金)','수(水)'];
+const OHAENG_NAMES  = ['목(木)','화(火)','토(土)','금(金)','수(水)'];
 const OHAENG_COLORS = ['#2e7d4f','#c0392b','#d4a017','#a8a8a0','#2c2c34'];
-const OHAENG_EMOJI = ['🌳','🔥','🌏','⚙️','💧'];
+const OHAENG_EMOJI  = ['🌳','🔥','🌏','⚙️','💧'];
 
 const isYang = i => i % 2 === 0;
 
+// ============================================================
+// 일간 정보
+// ============================================================
 const ILGAN_INFO = [
   {name:'갑목(甲木)',nature:'리더십이 강하고 곧은 성격. 대들보 같은 존재.',personality:'진취적·직선적·독립적',body:'간·담·눈',lucky:'봄·동쪽·녹색'},
   {name:'을목(乙木)',nature:'유연하고 적응력 뛰어남. 풀처럼 굽히되 꺾이지 않음.',personality:'유연·섬세·인내심',body:'간·담·눈·신경',lucky:'봄·동쪽·연두'},
@@ -516,7 +563,9 @@ const ILGAN_INFO = [
   {name:'계수(癸水)',nature:'이슬비처럼 섬세하고 지혜롭고 신중함.',personality:'신중함·지혜·감수성',body:'신장·방광·뼈',lucky:'겨울·북쪽·파랑'},
 ];
 
-
+// ============================================================
+// 십신
+// ============================================================
 const SIPSIN_NAMES = ['비견','겁재','식신','상관','편재','정재','편관','정관','편인','정인'];
 const SIPSIN_DESC = {
   '비견': '나와 같은 또래·동료 같은 기운. 독립심과 자존심이 강하고, 경쟁심도 있어요.',
@@ -532,18 +581,15 @@ const SIPSIN_DESC = {
 };
 
 function getSipsin(ilganIdx, targetCgIdx) {
-  const ilganOh = CG_OHAENG[ilganIdx];
+  const ilganOh  = CG_OHAENG[ilganIdx];
   const targetOh = CG_OHAENG[targetCgIdx];
   const sameYang = isYang(ilganIdx) === isYang(targetCgIdx);
-
   if (ilganOh === targetOh) return sameYang ? 0 : 1;
   if ((ilganOh + 1) % 5 === targetOh) return sameYang ? 2 : 3;
   if ((targetOh + 1) % 5 === ilganOh) return sameYang ? 8 : 9;
   const KEUK = {0:2, 2:4, 4:1, 1:3, 3:0};
   if (KEUK[ilganOh] === targetOh) return sameYang ? 4 : 5;
-  const KEUK_REV = {2:0, 4:2, 1:4, 3:1, 0:3};
-  if (KEUK_REV[ilganOh] === targetOh) return sameYang ? 6 : 7;
-  return -1;
+  return sameYang ? 6 : 7;
 }
 
 function getSipsinForJiji(ilganIdx, jijiIdx) {
@@ -552,67 +598,372 @@ function getSipsinForJiji(ilganIdx, jijiIdx) {
 }
 
 const JIJANGGAN = [
-  [8, null, 9],
-  [9, 7, 5],
-  [4, 2, 0],
-  [0, null, 1],
-  [1, 9, 4],
-  [4, 6, 2],
-  [2, 5, 3],
-  [3, 1, 5],
-  [4, 8, 6],
-  [6, null, 7],
-  [7, 3, 4],
-  [4, 0, 8],
+  [8,null,9],[9,7,5],[4,2,0],[0,null,1],[1,9,4],[4,6,2],
+  [2,5,3],[3,1,5],[4,8,6],[6,null,7],[7,3,4],[4,0,8],
+];
+function jjgText(jjIdx) {
+  return JIJANGGAN[jjIdx].filter(x => x !== null).map(x => CHEONGAN_KR[x]).join('·');
+}
+
+// ============================================================
+// ===== 신살 (神殺) 전체 통합 =====
+// ============================================================
+
+/* ---------- 12신살 ----------
+   삼합국별 겁살 시작 지지 인덱스
+   목국(亥卯未): 겁살=申(8)  화국(寅午戌): 겁살=亥(11)
+   금국(巳酉丑): 겁살=寅(2)  수국(申子辰): 겁살=巳(5)
+*/
+const SAMHAP_GUKSEOL = {
+  '목국': { members:[10,3,6],  start:8  }, // 亥卯未
+  '화국': { members:[2,6,10],  start:11 }, // 寅午戌
+  '금국': { members:[5,9,1],   start:5  }, // 巳酉丑  ← 수정: start=5 아님 → 금국 겁살=寅(2)
+  '수국': { members:[8,0,4],   start:5  }, // 申子辰
+};
+// 수정 버전: 삼합국 지지 목록 + 겁살 시작
+const SAMHAP = [
+  { name:'목국', jj:[10,3,6],  geoksal:8  }, // 亥卯未, 겁살=申
+  { name:'화국', jj:[2,6,10],  geoksal:11 }, // 寅午戌, 겁살=亥
+  { name:'금국', jj:[5,9,1],   geoksal:2  }, // 巳酉丑, 겁살=寅
+  { name:'수국', jj:[8,0,4],   geoksal:5  }, // 申子辰, 겁살=巳
 ];
 
-function jjgText(jjIdx) {
-  const arr = JIJANGGAN[jjIdx];
-  return arr.filter(x => x !== null).map(x => CHEONGAN_KR[x]).join('·');
+// 12신살 이름 (겁살부터 12개, 순서대로)
+const SINSAL_12_NAMES = ['겁살','재살','천살','지살','년살','월살','망신살','장성살','반안살','역마살','육해살','화개살'];
+
+// 지지로부터 소속 삼합국 찾기 (기준지지가 삼합국 멤버인 경우)
+function getSamhapGroup(jj) {
+  for (let g of SAMHAP) {
+    if (g.jj.includes(jj)) return g;
+  }
+  return null;
 }
 
-const SAMHAP_GROUP = { 2:0, 6:0, 10:0, 8:1, 0:1, 4:1, 11:2, 3:2, 7:2, 5:3, 9:3, 1:3 };
-const DOHWA_TARGET = [3, 9, 0, 6];
-const YEOKMA_TARGET = [8, 2, 5, 11];
-const HWAGAE_TARGET = [10, 4, 7, 1];
-
-const BAEKHO = [[0,4],[1,7],[2,10],[3,1],[4,4],[8,10],[9,1]];
-const GWAEGANG = [[6,4],[6,10],[8,4],[4,10]];
-
-function checkSinsalFull(yCg, yJj, mCg, mJj, dCg, dJj, hCg, hJj) {
-  const allJj = [yJj, mJj, dJj]; if (hJj !== null && hJj !== undefined) allJj.push(hJj);
+// 기준 지지에서 12신살 배열 생성 (겁살 시작점부터 순서대로)
+function get12Sinsal(baseJj) {
+  const group = getSamhapGroup(baseJj);
+  if (!group) return null;
   const result = [];
-
-  [{jj:yJj,label:'년지'}, {jj:dJj,label:'일지'}].forEach(({jj,label}) => {
-    const group = SAMHAP_GROUP[jj];
-    if (group === undefined) return;
-    if (allJj.includes(DOHWA_TARGET[group]) && !result.find(r=>r.name==='도화살')) {
-      result.push({name:'도화살', desc:`인기·매력운이 강한 살이에요. 사람을 끄는 묘한 매력이 있지만 이성 문제는 조심해야 해요. (${label} 기준)`});
-    }
-    if (allJj.includes(YEOKMA_TARGET[group]) && !result.find(r=>r.name==='역마살')) {
-      result.push({name:'역마살', desc:'이동·변화가 많은 살이에요. 해외, 출장, 이사 등 움직임이 많은 인생일 가능성이 높아요.'});
-    }
-    if (allJj.includes(HWAGAE_TARGET[group]) && !result.find(r=>r.name==='화개살')) {
-      result.push({name:'화개살', desc:'예술·종교·학문에 재능을 주는 살이에요. 혼자 몰입하는 걸 좋아하고 철학적인 면이 강해요.'});
-    }
-  });
-
-  if (BAEKHO.some(([c,j]) => c===dCg && j===dJj)) {
-    result.push({name:'백호대살', desc:'강렬한 기운의 살이에요. 추진력이 매우 강하지만 건강·사고에 조심이 필요해요. 동시에 카리스마도 강해요.'});
+  for (let i = 0; i < 12; i++) {
+    result.push((group.geoksal + i) % 12);
   }
-  if (GWAEGANG.some(([c,j]) => c===dCg && j===dJj)) {
-    result.push({name:'괴강살', desc:'리더십이 매우 강한 살이에요. 총명하고 추진력이 좋지만 고집이 세고 극단적인 성향이 나올 수 있어요.'});
-  }
-
-  const GUIMUN = [[0,9],[2,7],[1,6],[3,8],[4,11],[5,10]];
-  const hasGuimun = GUIMUN.some(([a,b]) => (allJj.includes(a) && allJj.includes(b)));
-  if (hasGuimun) {
-    result.push({name:'귀문관살', desc:'예민하고 직관이 발달한 살이에요. 영감이 뛰어나지만 생각이 많아 신경쓰는 일이 잦을 수 있어요.'});
-  }
-
-  return result;
+  return result; // result[i] = i번째 신살에 해당하는 지지 인덱스
 }
 
+// 행3 기준: "있는 국이 극하는 없는 국"의 대표 지지
+// 오행 극 관계: 목극토, 화극금, 토극수, 금극목, 수극화
+// 삼합국 오행: 목국=목, 화국=화, 금국=금, 수국=수 (토는 없음)
+function getRow3BaseJj(allJj) {
+  // 어느 국(局)에 속하는 지지가 있는지 확인
+  const presentGroups = new Set();
+  for (const jj of allJj) {
+    for (const g of SAMHAP) {
+      if (g.jj.includes(jj)) presentGroups.add(g.name);
+    }
+  }
+  // 극 관계: 목→토(없음), 화→금, 금→목, 수→화
+  // 토국이 없으므로 실질적으로 사용되는 극 관계
+  const KEUK_MAP = {
+    '목국': '토국', // 토국이 없으니 스킵
+    '화국': '금국',
+    '금국': '목국',
+    '수국': '화국',
+  };
+  const allGroupNames = ['목국','화국','금국','수국'];
+  const absentGroups = allGroupNames.filter(g => !presentGroups.has(g));
+
+  for (const present of presentGroups) {
+    const target = KEUK_MAP[present];
+    if (target && absentGroups.includes(target)) {
+      // target 국의 대표 지지: 삼합 중 두 번째(가운데) 지지 사용
+      const targetGroup = SAMHAP.find(g => g.name === target);
+      if (targetGroup) return targetGroup.jj[1]; // 중심 지지
+    }
+  }
+  return null;
+}
+
+// 사주에서 어떤 신살이 해당하는지 찾기
+function find12SinsalHits(baseJj, allJj) {
+  const map = get12Sinsal(baseJj);
+  if (!map) return [];
+  const hits = [];
+  for (let i = 0; i < 12; i++) {
+    if (allJj.includes(map[i])) {
+      hits.push({ name: SINSAL_12_NAMES[i], jj: map[i] });
+    }
+  }
+  return hits;
+}
+
+/* ---------- 귀인 / 길살 ---------- */
+// 천을귀인: 일간(천간 인덱스) → 해당 지지 인덱스 배열
+const CHEONUL_GWIIN = {
+  0:[1,7], 4:[1,7], 6:[1,7],  // 갑무경 → 축미(1,7)
+  1:[0,9], 5:[0,9],            // 을기 → 자유(0,9)
+  2:[11,9], 3:[11,9],          // 병정 → 해유(11,9)
+  7:[2,6],                     // 신 → 인오(2,6)
+  8:[3,5], 9:[3,5],            // 임계 → 묘사(3,5)
+};
+
+// 문창귀인: 일간 → 지지
+const MUNCHANG_GWIIN = [5,6,8,9,8,9,11,0,2,3]; // 갑=사(5), 을=오(6), ...
+
+// 건록: 일간 → 지지
+const GEUNROK = [2,3,5,6,5,6,8,9,11,0]; // 갑=인(2), 을=묘(3), ...
+
+// 암록: 일간 → 지지 (건록과 육합하는 지지)
+const AMROK = [11,10,8,7,8,7,5,4,2,1]; // 갑=해(11), 을=술(10), ...
+
+// 협록: 일간 → 지지 배열 (건록 앞뒤)
+const HYEOPROK = [
+  [1,3],[2,4],[4,6],[5,7],[4,6],[5,7],[7,9],[8,10],[10,0],[11,1]
+];
+
+// 양인살: 양간만 (갑=묘3, 병=오6, 무=오6, 경=유9, 임=자0)
+const YANGIEN = { 0:3, 2:6, 4:6, 6:9, 8:0 };
+
+/* ---------- 기존 살 (도화/역마/화개/백호/괴강/귀문관) ---------- */
+// 삼합 기준 도화/역마/화개 (년지·일지 기준)
+const SAMHAP_GROUP_FOR_OLD = { 2:0,6:0,10:0, 8:1,0:1,4:1, 11:2,3:2,7:2, 5:3,9:3,1:3 };
+const DOHWA_TARGET  = [3,9,0,6];
+const YEOKMA_TARGET = [8,2,5,11];  // 이미 12신살 역마와 동일
+const HWAGAE_TARGET = [10,4,7,1];
+
+const BAEKHO  = [[0,4],[1,7],[2,10],[3,1],[4,4],[8,10],[9,1]];
+const GWAEGANG = [[6,4],[6,10],[8,4],[4,10]];
+const GUIMUN  = [[0,9],[2,7],[1,6],[3,8],[4,11],[5,10]];
+
+/* ============================================================
+   메인 신살 계산 함수
+   ============================================================ */
+function calcSinsalFull(yCg, yJj, mCg, mJj, dCg, dJj, hCg, hJj) {
+  const allJj = [yJj, mJj, dJj];
+  if (hJj !== null && hJj !== undefined) allJj.push(hJj);
+
+  // ---- 12신살 행1(년지), 행2(일지), 행3(극국) ----
+  const row1hits = find12SinsalHits(yJj, allJj);
+  const row2hits = find12SinsalHits(dJj, allJj);
+  const row3base = getRow3BaseJj(allJj);
+  const row3hits = row3base !== null ? find12SinsalHits(row3base, allJj) : [];
+
+  // 12신살 중복 제거 (이름 기준)
+  const allSinsal12 = [];
+  const seenNames = new Set();
+  for (const h of [...row1hits, ...row2hits, ...row3hits]) {
+    if (!seenNames.has(h.name)) {
+      allSinsal12.push(h);
+      seenNames.add(h.name);
+    }
+  }
+
+  // ---- 귀인/길살 (일간 기준) ----
+  const gwiin = [];
+
+  // 천을귀인
+  const cheoulTargets = CHEONUL_GWIIN[dCg] || [];
+  const cheoulHits = cheoulTargets.filter(j => allJj.includes(j));
+  if (cheoulHits.length > 0) {
+    gwiin.push({ name:'천을귀인', jjNames: cheoulHits.map(j=>JIJI_KR[j]).join('·') });
+  }
+
+  // 문창귀인
+  const munchangJj = MUNCHANG_GWIIN[dCg];
+  if (allJj.includes(munchangJj)) {
+    gwiin.push({ name:'문창귀인', jjNames: JIJI_KR[munchangJj] });
+  }
+
+  // 건록
+  const geunrokJj = GEUNROK[dCg];
+  if (allJj.includes(geunrokJj)) {
+    gwiin.push({ name:'건록', jjNames: JIJI_KR[geunrokJj] });
+  }
+
+  // 암록
+  const amrokJj = AMROK[dCg];
+  if (allJj.includes(amrokJj)) {
+    gwiin.push({ name:'암록', jjNames: JIJI_KR[amrokJj] });
+  }
+
+  // 협록
+  const hyeoprokJjs = HYEOPROK[dCg];
+  const hyeoprokHits = hyeoprokJjs.filter(j => allJj.includes(j));
+  if (hyeoprokHits.length > 0) {
+    gwiin.push({ name:'협록', jjNames: hyeoprokHits.map(j=>JIJI_KR[j]).join('·') });
+  }
+
+  // 양인살 (음간은 해당 없음)
+  if (YANGIEN[dCg] !== undefined && allJj.includes(YANGIEN[dCg])) {
+    gwiin.push({ name:'양인살', jjNames: JIJI_KR[YANGIEN[dCg]] });
+  }
+
+  // ---- 기존 살 ----
+  const extra = [];
+
+  // 백호대살 (일주 기준)
+  if (BAEKHO.some(([c,j]) => c===dCg && j===dJj)) {
+    extra.push({name:'백호대살'});
+  }
+  // 괴강살
+  if (GWAEGANG.some(([c,j]) => c===dCg && j===dJj)) {
+    extra.push({name:'괴강살'});
+  }
+  // 귀문관살
+  if (GUIMUN.some(([a,b]) => (allJj.includes(a) && allJj.includes(b)))) {
+    extra.push({name:'귀문관살'});
+  }
+
+  return { allSinsal12, row1hits, row2hits, row3hits, row3base, gwiin, extra };
+}
+
+/* ---------- 신살 설명 ---------- */
+const SINSAL_12_DESC = {
+  '겁살':   '뜻밖의 손재수나 도난·사기 위험이 있어요. 대신 순발력과 결단력이 매우 강해요.',
+  '재살':   '관재·구설·외부의 압박이 따르는 살이에요. 법적 분쟁이나 시비에 조심이 필요해요.',
+  '천살':   '하늘의 재앙이라는 의미로, 예상치 못한 사고나 질병에 주의가 필요한 살이에요.',
+  '지살':   '이동과 변화가 잦은 살이에요. 해외여행·이사·출장 등 움직임이 많은 편이에요.',
+  '년살':   '도화살과 같아요. 매력이 넘치고 인기가 많지만, 이성 문제 조심이 필요해요.',
+  '월살':   '고립살이라고도 해요. 재물이나 기회가 막히는 시기가 생길 수 있어요.',
+  '망신살': '체면이 손상되거나 창피한 일을 당할 수 있는 살이에요. 경솔한 행동에 주의해요.',
+  '장성살': '리더십과 통솔력이 강한 살이에요. 군인·경찰·스포츠 분야에서 특히 빛을 발해요.',
+  '반안살': '말안장처럼 안정된 기운이에요. 한 자리에서 오래 버티며 성공하는 힘이 있어요.',
+  '역마살': '이동·변화가 많은 살이에요. 해외, 출장, 이사 등 활동적인 인생을 살 가능성이 높아요.',
+  '육해살': '육친과의 갈등·이별이 생기기 쉬운 살이에요. 가족·가까운 인연 관계에 신경 쓰세요.',
+  '화개살': '예술·종교·학문에 재능을 주는 살이에요. 혼자 몰입하는 걸 좋아하고 철학적인 면이 강해요.',
+};
+const GWIIN_DESC = {
+  '천을귀인': '사주 최고의 귀인성이에요! 위기 때마다 귀인이 나타나 도와줘요. 큰 어려움이 생겨도 결국 해결돼요.',
+  '문창귀인': '학문·문서·예술에 재능이 있는 귀인이에요. 시험운이 좋고 글재주가 뛰어나요.',
+  '건록':     '내 힘으로 재물과 명예를 쌓는 기운이에요. 자수성가하는 능력이 있어요.',
+  '암록':     '숨겨진 복록이에요. 드러나지 않게 재물이 쌓이거나 뒤에서 도와주는 귀인이 있어요.',
+  '협록':     '앞뒤에서 복이 끼어드는 기운이에요. 재물운과 귀인운이 꾸준히 따라와요.',
+  '양인살':   '칼날처럼 날카로운 기운의 살이에요. 의지와 추진력이 매우 강하지만 충동적인 면 조심.',
+};
+const EXTRA_DESC = {
+  '백호대살':  '강렬한 기운의 살이에요. 추진력과 카리스마가 넘치지만 건강·사고에 조심이 필요해요.',
+  '괴강살':   '리더십이 매우 강한 살이에요. 총명하고 추진력이 좋지만 고집이 세고 극단적인 성향이 나올 수 있어요.',
+  '귀문관살': '예민하고 직관이 발달한 살이에요. 영감이 뛰어나지만 생각이 많아 신경 쓰는 일이 잦을 수 있어요.',
+};
+
+/* ---------- 12신살 테이블 렌더링 ---------- */
+function render12SinsalTable(yJj, dJj, row3base, allJj) {
+  const rows = [
+    { label: '년지 기준', base: yJj,     hits: find12SinsalHits(yJj, allJj) },
+    { label: '일지 기준', base: dJj,     hits: find12SinsalHits(dJj, allJj) },
+    { label: '삼합 기준', base: row3base, hits: row3base !== null ? find12SinsalHits(row3base, allJj) : [] },
+  ];
+
+  let html = `<div style="overflow-x:auto;margin-bottom:10px;">
+    <table class="sinsal-12-table">
+      <thead>
+        <tr>
+          <th style="width:52px;">기준</th>
+          ${SINSAL_12_NAMES.map(n=>`<th>${n}</th>`).join('')}
+        </tr>
+      </thead>
+      <tbody>`;
+
+  for (const row of rows) {
+    const map = row.base !== null ? get12Sinsal(row.base) : null;
+    html += `<tr><td class="row-label">${row.label}<br><span style="font-family:'Noto Serif KR';font-size:.85rem;">${row.base !== null ? JIJI[row.base] : '—'}</span></td>`;
+    for (let i = 0; i < 12; i++) {
+      if (map === null) {
+        html += `<td>—</td>`;
+      } else {
+        const jjIdx = map[i];
+        const isHit = allJj.includes(jjIdx);
+        html += `<td class="${isHit ? 'hit' : ''}">${JIJI[jjIdx]}</td>`;
+      }
+    }
+    html += `</tr>`;
+  }
+  html += `</tbody></table></div>`;
+  return html;
+}
+
+/* ---------- 신살 탭 전체 렌더링 ---------- */
+function renderSinsal(yCg, yJj, mCg, mJj, dCg, dJj, hCg, hJj) {
+  const res = calcSinsalFull(yCg, yJj, mCg, mJj, dCg, dJj, hCg, hJj);
+  const allJj = [yJj, mJj, dJj];
+  if (hJj !== null && hJj !== undefined) allJj.push(hJj);
+
+  let html = '';
+
+  // ---- 12신살 섹션 ----
+  html += `<div class="sinsal-section">
+    <div class="sinsal-section-title">🌀 12신살</div>`;
+
+  html += render12SinsalTable(yJj, dJj, res.row3base, allJj);
+
+  if (res.allSinsal12.length > 0) {
+    html += `<div class="sinsal-grid">`;
+    for (const s of res.allSinsal12) {
+      const isBad = ['겁살','재살','천살','망신살','육해살','월살'].includes(s.name);
+      html += `<span class="sinsal-chip ${isBad ? 'chip-red' : 'chip-blue'}">${s.name}</span>`;
+    }
+    html += `</div>`;
+    html += `<div class="sinsal-desc-list">`;
+    for (const s of res.allSinsal12) {
+      const isBad = ['겁살','재살','천살','망신살','육해살','월살'].includes(s.name);
+      html += `<div class="sinsal-desc-item ${isBad ? 'desc-red' : 'desc-blue'}">
+        <b>${s.name}</b> — ${SINSAL_12_DESC[s.name] || ''}
+      </div>`;
+    }
+    html += `</div>`;
+  } else {
+    html += `<div class="sinsal-empty">12신살 해당 없음 — 무난하고 안정적인 흐름이에요 🍯</div>`;
+  }
+  html += `</div>`;
+
+  // ---- 귀인/길살 섹션 ----
+  html += `<div class="sinsal-section">
+    <div class="sinsal-section-title">✨ 귀인 · 길살 (일간 기준)</div>`;
+  if (res.gwiin.length > 0) {
+    html += `<div class="sinsal-grid">`;
+    for (const g of res.gwiin) {
+      const isBad = g.name === '양인살';
+      html += `<span class="sinsal-chip ${isBad ? 'chip-red' : 'chip-gold'}">${g.name}</span>`;
+    }
+    html += `</div>`;
+    html += `<div class="sinsal-desc-list">`;
+    for (const g of res.gwiin) {
+      const isBad = g.name === '양인살';
+      html += `<div class="sinsal-desc-item ${isBad ? 'desc-red' : 'desc-gold'}">
+        <b>${g.name}</b>${g.jjNames ? ` (${g.jjNames})` : ''} — ${GWIIN_DESC[g.name] || ''}
+      </div>`;
+    }
+    html += `</div>`;
+  } else {
+    html += `<div class="sinsal-empty">귀인성 해당 없음</div>`;
+  }
+  html += `</div>`;
+
+  // ---- 기타 살 섹션 ----
+  if (res.extra.length > 0) {
+    html += `<div class="sinsal-section">
+      <div class="sinsal-section-title">⚡ 특수살 (일주 · 지지 조합 기준)</div>
+      <div class="sinsal-grid">`;
+    for (const e of res.extra) {
+      html += `<span class="sinsal-chip chip-purple">${e.name}</span>`;
+    }
+    html += `</div><div class="sinsal-desc-list">`;
+    for (const e of res.extra) {
+      html += `<div class="sinsal-desc-item desc-purple"><b>${e.name}</b> — ${EXTRA_DESC[e.name] || ''}</div>`;
+    }
+    html += `</div></div>`;
+  }
+
+  // ---- 해당 없을 때 ----
+  if (res.allSinsal12.length === 0 && res.gwiin.length === 0 && res.extra.length === 0) {
+    html = `<div class="sinsal-empty">특별한 신살이 발견되지 않았어요. 무난하고 안정적인 사주예요! 🍯</div>`;
+  }
+
+  document.getElementById('sinsalContent').innerHTML = html;
+}
+
+// ============================================================
+// 절기 / 일주 / 시주 계산
+// ============================================================
 function getIpchun(year) { return new Date(year, 1, 4); }
 
 function getYearPillar(year, month, day) {
@@ -643,18 +994,15 @@ function getMonthCg(yearCg, monthJj) {
 }
 
 function getDayPillar(year, month, day) {
-  const base = new Date(1900, 0, 1);
+  const base   = new Date(1900, 0, 1);
   const target = new Date(year, month-1, day);
-  const diff = Math.round((target - base) / 86400000);
-  const total = ((diff + 10) % 60 + 60) % 60;
+  const diff   = Math.round((target - base) / 86400000);
+  const total  = ((diff + 10) % 60 + 60) % 60;
   return { cg: total % 10, jj: total % 12 };
 }
 
-// 한국 표준시 역사 보정: 출생 연월일 기준 표준시 기준자오선이 135도(보정 -30분)였는지
-// 127.5도(보정 없음)였는지 판단. 1912-01-01~1954-03-20, 1961-08-10~현재는 -30분 보정.
-// 1908-04-01~1911-12-31, 1954-03-21~1961-08-09는 보정 없음.
 function getStandardTimeOffset(year, month, day) {
-  const d = new Date(year, month-1, day);
+  const d     = new Date(year, month-1, day);
   const p1954 = new Date(1954, 2, 21);
   const p1961 = new Date(1961, 7, 10);
   const p1912 = new Date(1912, 0, 1);
@@ -664,50 +1012,28 @@ function getStandardTimeOffset(year, month, day) {
   return -30;
 }
 
-/* =========================================================================
-   ===== 시주/일주 계산 핵심 로직 (검증을 통해 확정된 규칙) =====
-   - rawMinutes: 입력시각을 입력일 0시 기준 분으로 환산 (0~1439)
-   - absMinutes = rawMinutes + 표준시보정값 (입력일 0시를 기준점으로 한 "절대 분", 음수/1440+ 가능)
-   - 일주 기준 day offset:
-       absMinutes < 0      → -1일 (전날 23:00~24:00 구간, 즉 "조자시"가 전날에 속함)
-       absMinutes >= 1380  → +1일 (그날 23:00 이후는 다음날 자시로 넘어감, "조자시")
-       그 외(0~1379)        → 그대로 (00:00~22:59는 입력일 그대로, "야자시" 포함)
-   - 시주 둔법 기준 일간(시간을 정할 때 사용하는 '그날의 일간')은 일주의 day offset과는
-     별도로 계산한다: 음수(-1, 전날 자시연장) 케이스만 0으로(당일 그대로) 처리하고,
-     나머지(0 또는 +1)는 일주와 동일한 offset을 사용한다.
-   - 시지 슬롯: 23:00을 자시 시작점(0)으로 잡고 120분 단위로 분류
-   ========================================================================= */
 function getSajuCore(sy, sm, sd, hh, mm, timeUnknown) {
   if (timeUnknown) {
     const yearPillar = getYearPillar(sy, sm, sd);
     const mJj = getMonthJj(sy, sm, sd);
     const mCg = getMonthCg(yearPillar.cg, mJj);
     const dayP = getDayPillar(sy, sm, sd);
-    return {
-      offsetMin: null,
-      yCg: yearPillar.cg, yJj: yearPillar.jj,
-      mCg, mJj,
-      dCg: dayP.cg, dJj: dayP.jj,
-      hourP: null
-    };
+    return { offsetMin:null, yCg:yearPillar.cg, yJj:yearPillar.jj, mCg, mJj, dCg:dayP.cg, dJj:dayP.jj, hourP:null };
   }
 
   const rawMinutes = hh*60 + mm;
-  const offsetMin = getStandardTimeOffset(sy, sm, sd);
+  const offsetMin  = getStandardTimeOffset(sy, sm, sd);
   const absMinutes = rawMinutes + offsetMin;
 
-  // 일주 day offset
   let dayPillarOffset;
   if (absMinutes < 0) dayPillarOffset = -1;
   else if (absMinutes >= 1380) dayPillarOffset = 1;
   else dayPillarOffset = 0;
 
-  // 시주 둔법용 day offset (음수만 0으로 보정)
   const hourDayOffset = (dayPillarOffset === -1) ? 0 : dayPillarOffset;
 
-  const dayBase = new Date(sy, sm-1, sd + dayPillarOffset);
-  const dayP = getDayPillar(dayBase.getFullYear(), dayBase.getMonth()+1, dayBase.getDate());
-
+  const dayBase  = new Date(sy, sm-1, sd + dayPillarOffset);
+  const dayP     = getDayPillar(dayBase.getFullYear(), dayBase.getMonth()+1, dayBase.getDate());
   const hourBase = new Date(sy, sm-1, sd + hourDayOffset);
   const hourDayP = getDayPillar(hourBase.getFullYear(), hourBase.getMonth()+1, hourBase.getDate());
 
@@ -715,83 +1041,39 @@ function getSajuCore(sy, sm, sd, hh, mm, timeUnknown) {
   const mJj = getMonthJj(sy, sm, sd);
   const mCg = getMonthCg(yearPillar.cg, mJj);
 
-  // 시지 슬롯 (23:00 기준 0)
   let normMin = ((absMinutes % 1440) + 1440) % 1440;
   let s = normMin - 1380;
   if (s < 0) s += 1440;
   const jj = Math.floor(s / 120);
 
-  const startCg = [0,2,4,6,8];
+  const startCg  = [0,2,4,6,8];
   const groupIdx = hourDayP.cg % 5;
-  const hCg = (startCg[groupIdx] + jj) % 10;
+  const hCg      = (startCg[groupIdx] + jj) % 10;
 
-  return {
-    offsetMin,
-    yCg: yearPillar.cg, yJj: yearPillar.jj,
-    mCg, mJj,
-    dCg: dayP.cg, dJj: dayP.jj,
-    hourP: { cg: hCg, jj: jj }
-  };
+  return { offsetMin, yCg:yearPillar.cg, yJj:yearPillar.jj, mCg, mJj, dCg:dayP.cg, dJj:dayP.jj, hourP:{cg:hCg, jj:jj} };
 }
 
+// ============================================================
+// 대운
+// ============================================================
 const DAEUN_SIPSIN_DESC = {
-  '비견': {
-    past: '또래·동료와 어울리며 자존심과 독립심을 키웠던 시기였을 거예요. 경쟁도 있었지만 그만큼 단단해졌을 시기예요.',
-    current: '동료·또래와의 관계, 협업이 중요해지는 흐름이에요. 자존심을 세우기보단 함께 가는 게 유리한 시기예요.',
-    future: '독립심과 추진력이 강해지는 흐름이 다가와요. 새로운 사람들과의 관계가 활발해질 시기예요.',
-  },
-  '겁재': {
-    past: '경쟁이나 재물 다툼, 예상치 못한 변동이 있었을 시기예요. 그만큼 단련되고 강해졌을 거예요.',
-    current: '경쟁과 변동이 두드러지는 흐름이에요. 큰 지출이나 투자는 신중하게 접근하는 게 좋은 시기예요.',
-    future: '추진력은 좋지만 재물 다툼이나 변동 가능성이 있는 흐름이 다가와요. 미리 대비해두면 좋을 시기예요.',
-  },
-  '식신': {
-    past: '여유롭고 마음 편하게, 먹을 복도 따르며 보냈을 시기였을 거예요.',
-    current: '느긋하고 인심 좋은 기운이 흐르는 시기예요. 표현력과 여유로움이 빛을 발하는 흐름이에요.',
-    future: '여유와 풍요로움이 따라오는 흐름이 다가와요. 즐기면서 일할 수 있는 시기가 될 거예요.',
-  },
-  '상관': {
-    past: '재능과 끼를 마음껏 발휘했지만, 직설적인 표현으로 구설수도 있었을 시기예요.',
-    current: '머리 회전이 빠르고 표현력이 좋아지는 흐름이에요. 말이 날카로워지지 않게 한 번 더 생각하면 좋은 시기예요.',
-    future: '재능과 끼가 두드러지는 흐름이 다가와요. 표현력을 잘 활용하면 좋은 기회로 이어질 시기예요.',
-  },
-  '편재': {
-    past: '큰 돈이 오가고 사업·투자 기질이 발현됐던 시기였을 거예요. 씀씀이도 컸을 시기예요.',
-    current: '뜻밖의 수입이나 기회가 들어오는 흐름이에요. 적극적으로 움직이면 좋은 결과가 따라오는 시기예요.',
-    future: '사업·투자 운이 따르는 흐름이 다가와요. 기회를 잡으면 큰 결실로 이어질 수 있는 시기예요.',
-  },
-  '정재': {
-    past: '꾸준하고 안정적으로 재물을 쌓아갔던 시기였을 거예요. 차근차근 기반을 다졌을 시기예요.',
-    current: '계획한 일이 안정적으로 풀리는 흐름이에요. 꼼꼼한 재물 관리에 좋은 시기예요.',
-    future: '안정적인 재물운이 따라오는 흐름이 다가와요. 차근차근 쌓아가기 좋은 시기가 될 거예요.',
-  },
-  '편관': {
-    past: '강한 추진력으로 위기를 돌파했지만 스트레스도 많았던 시기였을 거예요.',
-    current: '추진력과 카리스마가 솟구치는 흐름이에요. 무리한 충돌은 피하고 에너지를 잘 분산하면 좋은 시기예요.',
-    future: '강한 추진력이 필요한 흐름이 다가와요. 위기 대응력을 발휘할 기회가 생길 시기예요.',
-  },
-  '정관': {
-    past: '책임감 있게 일하며 조직 내에서 신뢰와 인정을 쌓았던 시기였을 거예요.',
-    current: '책임감과 명예가 중요해지는 흐름이에요. 윗사람이나 조직과의 관계에 신경 쓰면 좋은 시기예요.',
-    future: '안정적인 직장운과 신뢰가 따라오는 흐름이 다가와요. 조직 내 위치가 단단해질 시기예요.',
-  },
-  '편인': {
-    past: '독특한 발상과 직관으로 자기만의 길을 걸었던, 다소 고독했을 수도 있는 시기였을 거예요.',
-    current: '직관과 영감이 발달하는 흐름이에요. 혼자만의 시간을 잘 활용하면 좋은 아이디어가 떠오르는 시기예요.',
-    future: '독특한 재능과 직관이 발현되는 흐름이 다가와요. 예술·철학적 영역에서 빛을 발할 시기예요.',
-  },
-  '정인': {
-    past: '배움과 인덕 속에서 보호받으며 안정적으로 성장했던 시기였을 거예요.',
-    current: '마음이 편안하고 배움에 도움이 되는 흐름이에요. 공부나 자기계발에 좋은 시기예요.',
-    future: '학문운과 인덕이 따라오는 흐름이 다가와요. 배우고 성장하기 좋은 시기가 될 거예요.',
-  },
+  '비견':  { past:'또래·동료와 어울리며 자존심과 독립심을 키웠던 시기였을 거예요.',current:'동료·또래와의 관계, 협업이 중요해지는 흐름이에요.',future:'독립심과 추진력이 강해지는 흐름이 다가와요.' },
+  '겁재':  { past:'경쟁이나 재물 다툼, 예상치 못한 변동이 있었을 시기예요.',current:'경쟁과 변동이 두드러지는 흐름이에요. 큰 지출이나 투자는 신중하게.',future:'추진력은 좋지만 재물 다툼이나 변동 가능성이 있는 흐름이 다가와요.' },
+  '식신':  { past:'여유롭고 마음 편하게, 먹을 복도 따르며 보냈을 시기였을 거예요.',current:'느긋하고 인심 좋은 기운이 흐르는 시기예요.',future:'여유와 풍요로움이 따라오는 흐름이 다가와요.' },
+  '상관':  { past:'재능과 끼를 마음껏 발휘했지만, 직설적인 표현으로 구설수도 있었을 시기예요.',current:'머리 회전이 빠르고 표현력이 좋아지는 흐름이에요.',future:'재능과 끼가 두드러지는 흐름이 다가와요.' },
+  '편재':  { past:'큰 돈이 오가고 사업·투자 기질이 발현됐던 시기였을 거예요.',current:'뜻밖의 수입이나 기회가 들어오는 흐름이에요.',future:'사업·투자 운이 따르는 흐름이 다가와요.' },
+  '정재':  { past:'꾸준하고 안정적으로 재물을 쌓아갔던 시기였을 거예요.',current:'계획한 일이 안정적으로 풀리는 흐름이에요.',future:'안정적인 재물운이 따라오는 흐름이 다가와요.' },
+  '편관':  { past:'강한 추진력으로 위기를 돌파했지만 스트레스도 많았던 시기예요.',current:'추진력과 카리스마가 솟구치는 흐름이에요.',future:'강한 추진력이 필요한 흐름이 다가와요.' },
+  '정관':  { past:'책임감 있게 일하며 조직 내에서 신뢰와 인정을 쌓았던 시기예요.',current:'책임감과 명예가 중요해지는 흐름이에요.',future:'안정적인 직장운과 신뢰가 따라오는 흐름이 다가와요.' },
+  '편인':  { past:'독특한 발상과 직관으로 자기만의 길을 걸었던 시기예요.',current:'직관과 영감이 발달하는 흐름이에요.',future:'독특한 재능과 직관이 발현되는 흐름이 다가와요.' },
+  '정인':  { past:'배움과 인덕 속에서 보호받으며 안정적으로 성장했던 시기예요.',current:'마음이 편안하고 배움에 도움이 되는 흐름이에요.',future:'학문운과 인덕이 따라오는 흐름이 다가와요.' },
 };
 
 function getDaeun(yearCg, monthCg, monthJj, gender) {
   const yangYear = isYang(yearCg);
-  const isMale = gender === 'M';
-  const forward = (yangYear && isMale) || (!yangYear && !isMale);
-  const result = [];
+  const isMale   = gender === 'M';
+  const forward  = (yangYear && isMale) || (!yangYear && !isMale);
+  const result   = [];
   for (let i = 1; i <= 8; i++) {
     const offset = forward ? i : -i;
     const cg = ((monthCg + offset) % 10 + 10) % 10;
@@ -801,8 +1083,11 @@ function getDaeun(yearCg, monthCg, monthJj, gender) {
   return result;
 }
 
+// ============================================================
+// UI 상태
+// ============================================================
 let selectedGender = 'M';
-let savedSajuData = null;
+let savedSajuData  = null;
 
 function setGender(g) {
   selectedGender = g;
@@ -811,10 +1096,10 @@ function setGender(g) {
 }
 
 function toggleTimeUnknown() {
-  const btn = document.getElementById('timeUnknownBtn');
+  const btn       = document.getElementById('timeUnknownBtn');
   const timeInput = document.getElementById('birthTime');
-  const isActive = btn.classList.toggle('active');
-  timeInput.disabled = isActive;
+  const isActive  = btn.classList.toggle('active');
+  timeInput.disabled    = isActive;
   timeInput.style.opacity = isActive ? '0.4' : '1';
 }
 
@@ -826,8 +1111,8 @@ function switchTab(tab) {
 const OHAENG_CLASS = ['oh-mok','oh-hwa','oh-to','oh-geum','oh-su'];
 
 function pillarHTML(label, cg, jj, sipsinCg, sipsinJj) {
-  const cgOhClass = OHAENG_CLASS[CG_OHAENG[cg]];
-  const jjOhClass = OHAENG_CLASS[JJ_OHAENG[jj]];
+  const cgOhClass   = OHAENG_CLASS[CG_OHAENG[cg]];
+  const jjOhClass   = OHAENG_CLASS[JJ_OHAENG[jj]];
   const sipsinCgText = sipsinCg >= 0 ? SIPSIN_NAMES[sipsinCg] : '-';
   const sipsinJjText = sipsinJj >= 0 ? SIPSIN_NAMES[sipsinJj] : '-';
   return `
@@ -844,65 +1129,57 @@ function pillarHTML(label, cg, jj, sipsinCg, sipsinJj) {
     </div>`;
 }
 
+// ============================================================
+// 메인 계산
+// ============================================================
 function calculate() {
   const dateVal = document.getElementById('birthDate').value;
   if (!dateVal) { alert('생년월일을 입력해주세요!'); return; }
 
   const userName = document.getElementById('userName').value.trim();
   const [y, m, d] = dateVal.split('-').map(Number);
-  const calType = document.getElementById('calType').value;
+  const calType   = document.getElementById('calType').value;
 
   let sy = y, sm = m, sd = d;
   if (calType === 'lunar') {
     const approxSolar = new Date(y, m-1, d + 30);
-    sy = approxSolar.getFullYear();
-    sm = approxSolar.getMonth() + 1;
-    sd = approxSolar.getDate();
+    sy = approxSolar.getFullYear(); sm = approxSolar.getMonth()+1; sd = approxSolar.getDate();
   }
 
   const timeUnknown = document.getElementById('timeUnknownBtn').classList.contains('active');
   let hh = 12, mm = 0;
   if (!timeUnknown) {
-    const timeVal = document.getElementById('birthTime').value; // "HH:MM"
-    if (timeVal) {
-      const parts = timeVal.split(':').map(Number);
-      hh = parts[0]; mm = parts[1];
-    }
+    const timeVal = document.getElementById('birthTime').value;
+    if (timeVal) { const p = timeVal.split(':').map(Number); hh = p[0]; mm = p[1]; }
   }
 
   document.getElementById('loading').style.display = 'block';
-  document.getElementById('result').style.display = 'none';
+  document.getElementById('result').style.display  = 'none';
 
   setTimeout(() => {
     try {
       const core = getSajuCore(sy, sm, sd, hh, mm, timeUnknown);
-      const yCg = core.yCg, yJj = core.yJj;
-      const mCg = core.mCg, mJj = core.mJj;
-      const dCg = core.dCg, dJj = core.dJj;
-      const hourP = core.hourP;
+      const { yCg,yJj, mCg,mJj, dCg,dJj, hourP } = core;
 
-      savedSajuData = { yCg, yJj, mCg, mJj, dCg, dJj, hourP, sy, sm, sd, calType, y, m, d };
+      savedSajuData = { yCg,yJj, mCg,mJj, dCg,dJj, hourP, sy,sm,sd, calType,y,m,d };
 
+      // 사주 그리드
       let gridHTML = '';
       if (hourP) {
-        const ss = getSipsin(dCg, hourP.cg);
-        const ssJ = getSipsinForJiji(dCg, hourP.jj);
-        gridHTML += pillarHTML('시주 時', hourP.cg, hourP.jj, ss, ssJ);
+        gridHTML += pillarHTML('시주 時', hourP.cg, hourP.jj, getSipsin(dCg,hourP.cg), getSipsinForJiji(dCg,hourP.jj));
       }
-      gridHTML += pillarHTML('일주 日', dCg, dJj, -1, getSipsinForJiji(dCg, dJj));
-      gridHTML += pillarHTML('월주 月', mCg, mJj, getSipsin(dCg, mCg), getSipsinForJiji(dCg, mJj));
-      gridHTML += pillarHTML('연주 年', yCg, yJj, getSipsin(dCg, yCg), getSipsinForJiji(dCg, yJj));
+      gridHTML += pillarHTML('일주 日', dCg, dJj, -1, getSipsinForJiji(dCg,dJj));
+      gridHTML += pillarHTML('월주 月', mCg, mJj, getSipsin(dCg,mCg), getSipsinForJiji(dCg,mJj));
+      gridHTML += pillarHTML('연주 年', yCg, yJj, getSipsin(dCg,yCg), getSipsinForJiji(dCg,yJj));
       document.getElementById('sajuGrid').innerHTML = gridHTML;
 
+      // 오행
       const ohaengCount = [0,0,0,0,0];
-      const pillars = [[yCg, yJj],[mCg, mJj],[dCg, dJj]];
-      if (hourP) pillars.push([hourP.cg, hourP.jj]);
-      pillars.forEach(([cg,jj]) => {
-        ohaengCount[CG_OHAENG[cg]]++;
-        ohaengCount[JJ_OHAENG[jj]]++;
-      });
+      const pillars = [[yCg,yJj],[mCg,mJj],[dCg,dJj]];
+      if (hourP) pillars.push([hourP.cg,hourP.jj]);
+      pillars.forEach(([cg,jj]) => { ohaengCount[CG_OHAENG[cg]]++; ohaengCount[JJ_OHAENG[jj]]++; });
       const maxOh = Math.max(...ohaengCount) || 1;
-      document.getElementById('ohaengBars').innerHTML = ohaengCount.map((cnt, i) => `
+      document.getElementById('ohaengBars').innerHTML = ohaengCount.map((cnt,i) => `
         <div class="ohaeng-row">
           <div class="ohaeng-name" style="color:${OHAENG_COLORS[i]}">${OHAENG_EMOJI[i]}</div>
           <div class="ohaeng-bar-bg"><div class="ohaeng-bar-fill" style="width:${cnt/maxOh*100}%;background:${OHAENG_COLORS[i]}"></div></div>
@@ -911,6 +1188,7 @@ function calculate() {
         <div style="font-size:.65rem;color:var(--muted);text-align:center;margin:-4px 0 4px">${OHAENG_NAMES[i]}</div>
       `).join('');
 
+      // 일간 정보
       const ilgan = ILGAN_INFO[dCg];
       document.getElementById('ilganInfo').innerHTML = `
         <div class="info-chip"><div class="info-chip-label">일간</div><div class="info-chip-value">${ilgan.name}</div></div>
@@ -920,93 +1198,70 @@ function calculate() {
       `;
 
       const strongest = ohaengCount.indexOf(Math.max(...ohaengCount));
-      const weakest = ohaengCount.indexOf(Math.min(...ohaengCount));
-      const strongName = OHAENG_NAMES[strongest];
-      const weakName = OHAENG_NAMES[weakest];
-
+      const weakest   = ohaengCount.indexOf(Math.min(...ohaengCount));
       const honeyComments = [
-        `일간이 <strong>${ilgan.name}</strong>인 당신은 ${ilgan.nature} 오행 분포를 보니 ${strongName} 기운이 가장 강하고 ${weakName} 기운이 부족한 편이에요. ${weakName}을 보완하면 균형이 잡힐 수 있어요. ${selectedGender==='M'?'남성':'여성'}으로서 타고난 기질인 <strong>${ilgan.personality}</strong>을 잘 살리면 인생이 더욱 풍요로워진답니다! 🍯`,
-        `${CHEONGAN_KR[dCg]}일간의 에너지를 타고났군요! ${ilgan.nature} ${strongName} 에너지가 넘치는 사주라 활기차고 추진력 있는 삶을 살기 좋아요. 다만 ${weakName} 기운을 채워줄 인연이나 직업을 만나면 금상첨화! 꿀단지가 응원합니다 🍯`,
+        `일간이 <strong>${ilgan.name}</strong>인 당신은 ${ilgan.nature} 오행 분포를 보니 ${OHAENG_NAMES[strongest]} 기운이 가장 강하고 ${OHAENG_NAMES[weakest]} 기운이 부족한 편이에요. ${OHAENG_NAMES[weakest]}을 보완하면 균형이 잡힐 수 있어요. 타고난 기질인 <strong>${ilgan.personality}</strong>을 잘 살리면 인생이 더욱 풍요로워진답니다! 🍯`,
+        `${CHEONGAN_KR[dCg]}일간의 에너지를 타고났군요! ${ilgan.nature} ${OHAENG_NAMES[strongest]} 에너지가 넘치는 사주라 활기차고 추진력 있는 삶을 살기 좋아요. 꿀단지가 응원합니다 🍯`,
       ];
       document.getElementById('honeyText').innerHTML = honeyComments[dCg % 2];
 
+      // 십신
       const sipsinTargets = [
-        {label:'연간', cg:yCg, isJj:false}, {label:'연지', cg:yJj, isJj:true},
-        {label:'월간', cg:mCg, isJj:false}, {label:'월지', cg:mJj, isJj:true},
-        {label:'일지', cg:dJj, isJj:true},
+        {label:'연간',cg:yCg,isJj:false},{label:'연지',cg:yJj,isJj:true},
+        {label:'월간',cg:mCg,isJj:false},{label:'월지',cg:mJj,isJj:true},
+        {label:'일지',cg:dJj,isJj:true},
       ];
-      if (hourP) {
-        sipsinTargets.push({label:'시간', cg:hourP.cg, isJj:false});
-        sipsinTargets.push({label:'시지', cg:hourP.jj, isJj:true});
-      }
-      const sipsinHTML = sipsinTargets.map(t => {
-        const ss = t.isJj ? getSipsinForJiji(dCg, t.cg) : getSipsin(dCg, t.cg);
+      if (hourP) { sipsinTargets.push({label:'시간',cg:hourP.cg,isJj:false}); sipsinTargets.push({label:'시지',cg:hourP.jj,isJj:true}); }
+      document.getElementById('sipsinList').innerHTML = sipsinTargets.map(t => {
+        const ss = t.isJj ? getSipsinForJiji(dCg,t.cg) : getSipsin(dCg,t.cg);
         if (ss < 0) return '';
         const name = SIPSIN_NAMES[ss];
-        return `<div class="sipsin-item">
-          <div class="sipsin-badge">${t.label}</div>
-          <div class="sipsin-desc"><b>${name}</b> — ${SIPSIN_DESC[name]}</div>
-        </div>`;
+        return `<div class="sipsin-item"><div class="sipsin-badge">${t.label}</div><div class="sipsin-desc"><b>${name}</b> — ${SIPSIN_DESC[name]}</div></div>`;
       }).join('');
-      document.getElementById('sipsinList').innerHTML = sipsinHTML;
 
-      const sinsalResult = checkSinsalFull(yCg, yJj, mCg, mJj, dCg, dJj, hourP?hourP.cg:null, hourP?hourP.jj:null);
-      if (sinsalResult.length === 0) {
-        document.getElementById('sinsalGrid').innerHTML = '';
-        document.getElementById('sinsalDescList').innerHTML = '<div class="sinsal-empty">특별한 신살이 발견되지 않았어요. 무난하고 안정적인 사주네요! 🍯</div>';
-      } else {
-        document.getElementById('sinsalGrid').innerHTML = sinsalResult.map(s => `<span class="sinsal-chip">${s.name}</span>`).join('');
-        document.getElementById('sinsalDescList').innerHTML = sinsalResult.map(s => `<div class="sinsal-desc-item"><b>${s.name}</b> — ${s.desc}</div>`).join('');
-      }
+      // 신살 (새 통합 버전)
+      renderSinsal(yCg,yJj,mCg,mJj,dCg,dJj, hourP?hourP.cg:null, hourP?hourP.jj:null);
 
+      // 오늘 운세
       renderTodayFortune(dCg, dJj);
 
+      // 대운
       const daeun = getDaeun(yCg, mCg, mJj, selectedGender);
-
-      // 현재 만 나이 계산 (양력 생일 기준)
       const todayNow = new Date();
       let currentAge = todayNow.getFullYear() - sy;
-      const hasHadBirthdayThisYear =
-        (todayNow.getMonth()+1 > sm) || (todayNow.getMonth()+1 === sm && todayNow.getDate() >= sd);
-      if (!hasHadBirthdayThisYear) currentAge -= 1;
+      if (!((todayNow.getMonth()+1 > sm) || (todayNow.getMonth()+1===sm && todayNow.getDate()>=sd))) currentAge--;
 
-      document.getElementById('daeunList').innerHTML = daeun.map(({cg,jj,startAge}, idx) => {
-        const cgYang = isYang(cg) ? 'yang' : 'yin';
-        const jjYang = isYang(jj) ? 'yang' : 'yin';
-        const nextStartAge = idx < daeun.length-1 ? daeun[idx+1].startAge : startAge + 10;
+      document.getElementById('daeunList').innerHTML = daeun.map(({cg,jj,startAge},idx) => {
+        const nextStartAge = idx < daeun.length-1 ? daeun[idx+1].startAge : startAge+10;
         const isCurrent = currentAge >= startAge && currentAge < nextStartAge;
-        const isPast = currentAge >= nextStartAge;
-        const tense = isCurrent ? 'current' : (isPast ? 'past' : 'future');
-
-        const daeunSipsin = getSipsin(dCg, cg);
-        const sipsinName = daeunSipsin >= 0 ? SIPSIN_NAMES[daeunSipsin] : '비견';
-        const descText = DAEUN_SIPSIN_DESC[sipsinName][tense];
-
-        return `<div class="daeun-item ${isCurrent ? 'current' : ''}">
-          ${isCurrent ? '<span class="daeun-now-badge">📍 지금 이 시기</span>' : ''}
+        const isPast    = currentAge >= nextStartAge;
+        const tense     = isCurrent ? 'current' : (isPast ? 'past' : 'future');
+        const sipsinName = SIPSIN_NAMES[getSipsin(dCg,cg)] || '비견';
+        return `<div class="daeun-item ${isCurrent?'current':''}">
+          ${isCurrent?'<span class="daeun-now-badge">📍 지금 이 시기</span>':''}
           <div class="daeun-glyph">
             <div class="daeun-age">${startAge}세~</div>
-            <div class="daeun-char ${cgYang}">${CHEONGAN[cg]}</div>
-            <div class="daeun-char ${jjYang}">${JIJI[jj]}</div>
+            <div class="daeun-char ${isYang(cg)?'yang':'yin'}">${CHEONGAN[cg]}</div>
+            <div class="daeun-char ${isYang(jj)?'yang':'yin'}">${JIJI[jj]}</div>
             <div class="daeun-hanja">${CHEONGAN_KR[cg]}${JIJI_KR[jj]}</div>
           </div>
           <div class="daeun-body">
             <span class="daeun-sipsin-tag">${sipsinName}</span>
-            <div class="daeun-desc">${descText}</div>
+            <div class="daeun-desc">${DAEUN_SIPSIN_DESC[sipsinName][tense]}</div>
           </div>
         </div>`;
       }).join('');
 
+      // 결과 헤더
       const gzYear = `${CHEONGAN_KR[yCg]}${JIJI_KR[yJj]}년`;
-      const zodiac = JIJI_ZOO[yJj];
       document.getElementById('resultUserName').textContent = userName ? `🍯 ${userName}님의 사주` : '';
-      document.getElementById('resultName').textContent = `${gzYear}(${zodiac}띠) · ${calType==='lunar'?'음력':'양력'} ${y}.${String(m).padStart(2,'0')}.${String(d).padStart(2,'0')}`;
-      document.getElementById('resultSub').textContent = `일간: ${CHEONGAN_KR[dCg]} · ${selectedGender==='M'?'남성':'여성'} · ${OHAENG_NAMES[strongest]} 강`;
+      document.getElementById('resultName').textContent     = `${gzYear}(${JIJI_ZOO[yJj]}띠) · ${calType==='lunar'?'음력':'양력'} ${y}.${String(m).padStart(2,'0')}.${String(d).padStart(2,'0')}`;
+      document.getElementById('resultSub').textContent      = `일간: ${CHEONGAN_KR[dCg]} · ${selectedGender==='M'?'남성':'여성'} · ${OHAENG_NAMES[strongest]} 강`;
 
       switchTab('basic');
       document.getElementById('loading').style.display = 'none';
-      document.getElementById('result').style.display = 'block';
-      document.getElementById('result').scrollIntoView({behavior:'smooth', block:'start'});
+      document.getElementById('result').style.display  = 'block';
+      document.getElementById('result').scrollIntoView({behavior:'smooth',block:'start'});
     } catch(e) {
       document.getElementById('loading').style.display = 'none';
       alert('계산 중 오류가 발생했어요. 날짜를 확인해주세요.');
@@ -1015,6 +1270,9 @@ function calculate() {
   }, 600);
 }
 
+// ============================================================
+// 오늘의 운세
+// ============================================================
 function renderTodayFortune(dCg, dJj) {
   const today = new Date();
   const todayP = getDayPillar(today.getFullYear(), today.getMonth()+1, today.getDate());
@@ -1029,66 +1287,51 @@ function renderTodayFortune(dCg, dJj) {
   `;
 
   const todaySipsin = getSipsin(dCg, tCg);
-  const sipsinName = todaySipsin >= 0 ? SIPSIN_NAMES[todaySipsin] : '비견';
+  const sipsinName  = todaySipsin >= 0 ? SIPSIN_NAMES[todaySipsin] : '비견';
 
-  const myOh = CG_OHAENG[dCg];
+  const myOh    = CG_OHAENG[dCg];
   const todayOh = CG_OHAENG[tCg];
-  let totalScore = 3, moneyScore = 3, loveScore = 3, healthScore = 3;
+  let totalScore=3, moneyScore=3, loveScore=3, healthScore=3;
 
-  if ((todayOh + 1) % 5 === myOh) { totalScore = 5; healthScore = 4; }
-  if (myOh === todayOh) { totalScore = 4; moneyScore = 2; }
+  if ((todayOh+1)%5===myOh) { totalScore=5; healthScore=4; }
+  if (myOh===todayOh) { totalScore=4; moneyScore=2; }
+  const KEUK={0:2,2:4,4:1,1:3,3:0};
+  if (KEUK[todayOh]===myOh) { totalScore=2; healthScore=2; }
+  if (KEUK[myOh]===todayOh) { totalScore=4; moneyScore=4; }
+  if ((myOh+1)%5===todayOh) { totalScore=5; loveScore=4; }
 
-  const KEUK = {0:2, 2:4, 4:1, 1:3, 3:0};
-  if (KEUK[todayOh] === myOh) { totalScore = 2; healthScore = 2; }
-  if (KEUK[myOh] === todayOh) { totalScore = 4; moneyScore = 4; }
-  if ((myOh + 1) % 5 === todayOh) { totalScore = 5; loveScore = 4; }
-
-  const scoreLabels = [
-    {label:'총운', score:totalScore},
-    {label:'금전운', score:moneyScore},
-    {label:'애정운', score:loveScore},
-    {label:'건강운', score:healthScore},
-  ];
-  document.getElementById('todayScoreRow').innerHTML = scoreLabels.map(s => `
-    <div class="today-score-chip">
-      <div class="today-score-label">${s.label}</div>
-      <div class="today-score-star">${'★'.repeat(s.score)}${'☆'.repeat(5-s.score)}</div>
-    </div>
-  `).join('');
+  document.getElementById('todayScoreRow').innerHTML = [
+    {label:'총운',score:totalScore},{label:'금전운',score:moneyScore},
+    {label:'애정운',score:loveScore},{label:'건강운',score:healthScore},
+  ].map(s=>`<div class="today-score-chip"><div class="today-score-label">${s.label}</div><div class="today-score-star">${'★'.repeat(s.score)}${'☆'.repeat(5-s.score)}</div></div>`).join('');
 
   const todayTextMap = {
-    '비견': '오늘은 또래나 동료와의 협업, 경쟁이 두드러지는 날이에요. 자존심 세우기보단 협력하는 게 유리해요.',
-    '겁재': '예상치 못한 지출이나 경쟁 상황이 생길 수 있어요. 큰 결정이나 투자는 신중하게 하루 미뤄보는 게 좋아요.',
-    '식신': '여유롭고 마음 편한 하루예요. 맛있는 거 먹으면서 느긋하게 보내면 운이 더 좋아져요.',
-    '상관': '머리 회전이 빠르고 표현력이 좋은 날이에요. 다만 말이 날카로워질 수 있으니 한 번 더 생각하고 말하기!',
-    '편재': '뜻밖의 수입이나 기회가 생길 수 있는 날이에요. 적극적으로 움직이면 좋은 결과가 따라와요.',
-    '정재': '꼼꼼하게 계획한 일이 차근차근 풀리는 날이에요. 안정적인 재물 관리에 좋은 타이밍이에요.',
-    '편관': '추진력이 솟구치는 날이지만 스트레스도 같이 와요. 무리한 충돌은 피하고 에너지를 잘 분산하세요.',
-    '정관': '책임감 있게 일처리하면 인정받는 날이에요. 윗사람이나 조직과의 관계에 신경 쓰면 좋아요.',
-    '편인': '직관이 발달하는 날이에요. 새로운 아이디어나 영감이 떠오를 수 있어요. 혼자만의 시간도 추천해요.',
-    '정인': '마음이 편안하고 배움에 도움이 되는 날이에요. 공부나 자기계발에 좋은 기운이 흐르고 있어요.',
+    '비견':'오늘은 또래나 동료와의 협업, 경쟁이 두드러지는 날이에요. 자존심 세우기보단 협력하는 게 유리해요.',
+    '겁재':'예상치 못한 지출이나 경쟁 상황이 생길 수 있어요. 큰 결정이나 투자는 신중하게 하루 미뤄보는 게 좋아요.',
+    '식신':'여유롭고 마음 편한 하루예요. 맛있는 거 먹으면서 느긋하게 보내면 운이 더 좋아져요.',
+    '상관':'머리 회전이 빠르고 표현력이 좋은 날이에요. 다만 말이 날카로워질 수 있으니 한 번 더 생각하고 말하기!',
+    '편재':'뜻밖의 수입이나 기회가 생길 수 있는 날이에요. 적극적으로 움직이면 좋은 결과가 따라와요.',
+    '정재':'꼼꼼하게 계획한 일이 차근차근 풀리는 날이에요. 안정적인 재물 관리에 좋은 타이밍이에요.',
+    '편관':'추진력이 솟구치는 날이지만 스트레스도 같이 와요. 무리한 충돌은 피하고 에너지를 잘 분산하세요.',
+    '정관':'책임감 있게 일처리하면 인정받는 날이에요. 윗사람이나 조직과의 관계에 신경 쓰면 좋아요.',
+    '편인':'직관이 발달하는 날이에요. 새로운 아이디어나 영감이 떠오를 수 있어요. 혼자만의 시간도 추천해요.',
+    '정인':'마음이 편안하고 배움에 도움이 되는 날이에요. 공부나 자기계발에 좋은 기운이 흐르고 있어요.',
   };
   document.getElementById('todayText').innerHTML = `오늘은 나에게 <strong>${sipsinName}</strong> 기운이 들어오는 날이에요. ${todayTextMap[sipsinName]} 🍯`;
 }
 
-function captureCanvas() {
-  const target = document.getElementById('captureArea');
-  if (!window.html2canvas) {
-    alert('캡처 기능을 불러오는 중이에요. 잠시 후 다시 시도해주세요.');
-    return Promise.reject('html2canvas not loaded');
-  }
-  return html2canvas(target, { backgroundColor: '#fef9ef', scale: 2 });
-}
-
+// ============================================================
+// 이미지 저장
+// ============================================================
 function saveImage() {
-  captureCanvas().then(canvas => {
+  const target = document.getElementById('captureArea');
+  if (!window.html2canvas) { alert('캡처 기능을 불러오는 중이에요. 잠시 후 다시 시도해주세요.'); return; }
+  html2canvas(target, { backgroundColor:'#fef9ef', scale:2 }).then(canvas => {
     const link = document.createElement('a');
     link.download = '꿀단지_사주팔자.png';
     link.href = canvas.toDataURL('image/png');
     link.click();
-  }).catch(e => {
-    console.error(e);
-  });
+  }).catch(console.error);
 }
 </script>
 </body>
