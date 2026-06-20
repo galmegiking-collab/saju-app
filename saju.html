@@ -1556,6 +1556,7 @@ function calculate() {
         const tense     = isCurrent ? 'current' : (isPast ? 'past' : 'future');
         const sipsinName = SIPSIN_NAMES[getSipsin(dCg,cg)] || '비견';
         const descText = getDaeunDesc(sipsinName, startAge, tense);
+        return `<div class="daeun-item ${isCurrent?'current':''}">
           ${isCurrent?'<span class="daeun-now-badge">📍 지금 이 시기</span>':''}
           <div class="daeun-glyph">
             <div class="daeun-age">${startAge}세~</div>
